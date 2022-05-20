@@ -1,16 +1,18 @@
 #include <iostream>
 #include <fstream>
+
 using namespace std;
+
 #if 1
 //文件处理
 int main(){
     string instr, str;
-    cin >> instr;
+    getline(cin, instr, '\n');
     ofstream oF("text.txt");
     oF << instr << endl;
     oF.close();
     ifstream iF("text.txt");
-    iF >> str;
+    getline(iF, str, '\n');
     iF.close();
     cout << str << endl;
     return 0;

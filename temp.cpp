@@ -10,6 +10,6 @@ using namespace std;
 
 int main(){
 	Huffman hf = coding("input/ToBeTrean.txt");
-	vector<HTree_Node> ad = hf.Full_Level_Tree();
+	hf.VisualPrint();
 	system("pause");
 }
