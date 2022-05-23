@@ -126,22 +126,19 @@ class Huffman{
             }
         }
 
-        void BuildCode(){
-            list<HTree_Node> l;
-            l.push_back(tree.back());
-            while(!l.empty()){
-                if(l.front().lchild != -1){
-                    l.push_back(tree[l.front().lchild]);
-                    code[tree[l.front().lchild].data] = code[l.front().data] + "0";
+        void BuildCode(map<char, int> &char_weight){
+            for(int i = 0; i < char_weight.size(); i ++){
+                code[tree[i].data] = "";
+                int p = i;
+                while(tree[p].parent != -1){
+                    if(p == tree[tree[p].parent].lchild)
+                        code[tree[i].data] = "0" + code[tree[i].data];
+                    else
+                        code[tree[i].data] = "1" + code[tree[i].data];
+                    p = tree[p].parent;
                 }
-                if(l.front().rchild != -1){
-                    l.push_back(tree[l.front().rchild]);
-                    code[tree[l.front().rchild].data] = code[l.front().data] + "1";
-                }
-                l.pop_front();
             }
         }
-
         void clear(){
             this->code.clear();
             this->cmap.clear();
@@ -150,6 +147,10 @@ class Huffman{
 
         map<char, string> GetCode(){
             return this->code;
+        }
+
+        vector<char> GetCharMap(){
+            return this->cmap;
         }
 
         void Hfmtree_Output(ofstream &oF, map<char, int> &char_weight){

@@ -3,8 +3,6 @@
 #include <string>
 #include <vector>
 #include <map>
-#include "functions/CodingHuff.h"
-#include "functions/DeCodingHuff.h"
 #include "functions/DesignHuff.h"
 
 using namespace std;
@@ -20,11 +18,11 @@ map<char, string> huff_code;
 map<string, char> inverse_huff_code(){
     map<string, char> res;
     for(auto &c : huff_code)
-        res[c.second] = c.first
+        res[c.second] = c.first;
     return res;
 }
 
-bool isFileExists_ifstream(string& name) {
+bool isFileExists_ifstream(string name) {
     ifstream f(name.c_str());
     bool res = f.good();
     f.close();
@@ -33,13 +31,8 @@ bool isFileExists_ifstream(string& name) {
 
 void head_print(){
     system("cls");
-    system("clear");
-    cout << "======= Huffman Tree =======" << endl << endl;
-    cout << "Supporting Functions:" << endl << endl;
-    cout << "   1. Coding Huffman" << endl;
-    cout << "   2. Decoding Huffman" << endl;
-    cout << "   3. Design Huffman" << endl;
-    cout << "============================" << endl;
+    cout << "======= Huffman Tree Status =======" << endl;
+    
     cout << "Target Code File: ";
     if(file_name[0].size() == 0)
         cout << "NULL" << endl;
@@ -60,6 +53,7 @@ void head_print(){
         cout << "Existed" << endl;
     else
         cout << "Unexisted" << endl;
+    cout << endl;
     return;
 }
 
@@ -87,13 +81,14 @@ int main(){
         cout << "    4. Build code file from origin file" << endl << endl;
 
         cout << " About Origin File:" << endl;
-        cout << "    5. Switch origin file to coding/decoding" << endl;
-        cout << "    6. Coding origin file with existed huffman code" << endl;
-        cout << "    7. Decoding origin file with existed huffman code" << endl;
+        cout << "    A. Switch origin file to coding/decoding" << endl;
+        cout << "    B. Coding origin file with existed huffman code" << endl;
+        cout << "    C. Decoding origin file with existed huffman code" << endl << endl;
 
-        cout << " About Huffman Tree:" << endl;
-        cout << "    8. Visual print huffman tree" << endl;
-        cout << "    9. Output the huffman code" << endl << endl;
+        cout << " About Huffman:" << endl;
+        cout << "    a. Visual print huffman tree" << endl;
+        cout << "    b. Output the huffman code" << endl;
+        cout << "    c. Save huffman code in local" << endl << endl;
 
         cout << "    Q. Quit" << endl << endl;
 
@@ -107,7 +102,7 @@ int main(){
                     cout << "Do you want to destory it and continue? (Y/N) ";
                     char bool_ch = '#';
                     bool bool_res;
-                    while(!bool_cheak(bool_ch, &bool_res))
+                    while(!bool_cheak(bool_ch, bool_res))
                         cin >> bool_ch;
                     if(bool_res)
                         huff_code.clear();
@@ -115,7 +110,7 @@ int main(){
                         break;
                 }
                 head_print();
-                cout << "Please enter the path of the code file (.huff.txt)" << endl;
+                cout << "Please enter the path of the code file (.huff.key)" << endl;
                 cout << "  " << endl;
                 getline(cin, file_name[0], '\n');
                 while(!isFileExists_ifstream(file_name[0])){
@@ -124,22 +119,11 @@ int main(){
                     getline(cin, file_name[0], '\n');
                 }
                 ifstream iF(file_name[0]);
-                for(string line; getline(iF, line); ){
-                    string code;
-                    char c;
-                    if(line.find(" ") == line.size() - 1){
-                        code = line;
-                        code.pop_back();
-                        c = '\n';
-                        getline(iF, line);
-                    }
-                    else{
-                        c = line[line.find(" ") + 1];
-                        code = line.substr(0, line.find(" "));
-                    }
-                    cout << c << " " << code << endl;
-                    huff_code[c] = code;
-                }
+                for(string line; getline(iF, line); )
+                    if(line.substr(0,2) == "\\n")
+                        huff_code['\n'] = line.substr(3);
+                    else
+                        huff_code[line[0]] = line.substr(2);
                 iF.close();
                 cout << "Done!" << endl;
                 huffman_code_exist = true;
@@ -154,7 +138,7 @@ int main(){
                     cout << "Do you want to destory them and continue? (Y/N) ";
                     char bool_ch = '#';
                     bool bool_res;
-                    while(!bool_cheak(bool_ch, &bool_res))
+                    while(!bool_cheak(bool_ch, bool_res))
                         cin >> bool_ch;
                     if(bool_res){
                         huff_code.clear();
@@ -168,7 +152,7 @@ int main(){
                     cout << "Do you want to destory it and continue? (Y/N) ";
                     char bool_ch = '#';
                     bool bool_res;
-                    while(!bool_cheak(bool_ch, &bool_res))
+                    while(!bool_cheak(bool_ch, bool_res))
                         cin >> bool_ch;
                     if(bool_res)
                         huff_code.clear();
@@ -208,7 +192,7 @@ int main(){
                     cout << "Do you want to destory it and continue? (Y/N) ";
                     char bool_ch = '#';
                     bool bool_res;
-                    while(!bool_cheak(bool_ch, &bool_res))
+                    while(!bool_cheak(bool_ch, bool_res))
                         cin >> bool_ch;
                     if(bool_res)
                         huff_code.clear();
@@ -246,7 +230,7 @@ int main(){
                     cout << "Do you want to destory them and continue? (Y/N) ";
                     char bool_ch = '#';
                     bool bool_res;
-                    while(!bool_cheak(bool_ch, &bool_res))
+                    while(!bool_cheak(bool_ch, bool_res))
                         cin >> bool_ch;
                     if(bool_res){
                         huff_code.clear();
@@ -260,7 +244,7 @@ int main(){
                     cout << "Do you want to destory it and continue? (Y/N) ";
                     char bool_ch = '#';
                     bool bool_res;
-                    while(!bool_cheak(bool_ch, &bool_res))
+                    while(!bool_cheak(bool_ch, bool_res))
                         cin >> bool_ch;
                     if(bool_res)
                         huff_code.clear();
@@ -278,7 +262,7 @@ int main(){
                 system("pause");
             }break;
 
-            case '5':{ // Switch origin file to coding/decoding
+            case 'A':{ // Switch origin file to coding/decoding
                 head_print();
                 cout << "Please enter the path of the file" << endl;
                 cout << "  " << endl;
@@ -292,27 +276,27 @@ int main(){
                 system("pause");
             }break;
 
-            case '6':{ // Coding origin file with existed huffman code
-                if(!huff_code_exist){
+            case 'B':{ // Coding origin file with existed huffman code
+                if(!huffman_code_exist){
                     cout << "Error! The huffman code is not existed!" << endl;
                     system("pause");
                     break;
                 }
-                if(filename[0].size() == 0){
+                if(file_name[1].size() == 0){
                     cout << "Error! The origin file path is not existed!" << endl;
                     system("pause");
                     break;
                 }
-                string ofname = string("output/") + filenamewithoutext(filename(filename[0])) + ".huff";
+                string ofname = string("output/") + filenamewithoutext(filename(file_name[1])) + ".codefile";
                 int temp_name = 1;
                 if(isFileExists_ifstream(ofname)){
                     ofname = filenamewithoutext(ofname);
-                    while(isFileExists_ifstream(ofname + "(" to_string(temp_name) + ").huff"))
+                    while(isFileExists_ifstream(ofname + "(" + to_string(temp_name) + ").codefile"))
                         temp_name ++;
-                    ofname = ofname + "(" to_string(temp_name) + ").huff";
+                    ofname = ofname + "(" + to_string(temp_name) + ").codefile";
                 }
-                cout << "Origin file name: " << filename(filename[0]) << endl;
-                ifstream iF(filename[0]);
+                cout << "Origin file name: " << filename(file_name[1]) << endl;
+                ifstream iF(file_name[1]);
                 vector<string> lines;
                 for(string line; getline(iF, line); )
                     lines.push_back(line);
@@ -333,26 +317,27 @@ int main(){
                 system("pause");
             }break;
 
-            case '7':{ // Decoding origin file with existed huffman code
-                if(!huff_code_exist){
+            case 'C':{ // Decoding origin file with existed huffman code
+                if(!huffman_code_exist){
                     cout << "Error! The huffman code is not existed!" << endl;
                     system("pause");
                     break;
                 }
-                if(filename[0].size() == 0){
+                if(file_name[1].size() == 0){
                     cout << "Error! The origin file path is not existed!" << endl;
                     system("pause");
                     break;
                 }
-                string ofname = string("output/") + filenamewithoutext(filename(filename[0])) + ".txt";
+                string ofname = string("output/") + filenamewithoutext(filename(file_name[1])) + ".txt";
                 int temp_name = 1;
                 if(isFileExists_ifstream(ofname)){
                     ofname = filenamewithoutext(ofname);
-                    while(isFileExists_ifstream(ofname + "(" to_string(temp_name) + ").txt"))
+                    while(isFileExists_ifstream(ofname + "(" + to_string(temp_name) + ").txt"))
                         temp_name ++;
-                    ofname = ofname + "(" to_string(temp_name) + ").txt";
+                    ofname = ofname + "(" + to_string(temp_name) + ").txt";
                 }
                 ofstream oF(ofname);
+                ifstream iF(file_name[1]);
                 map<string, char> inverse_code = inverse_huff_code();
                 for(string line; getline(iF, line); ){
                     string code = "";
@@ -365,13 +350,13 @@ int main(){
                     }
                 }
                 oF.close();
-                cout << "Origin file name: " << filename(filename[0]) << endl;
+                cout << "Origin file name: " << filename(file_name[1]) << endl;
                 cout << "Output file path: " << ofname << endl;
                 cout << "Finish!" << endl;
                 system("pause");
             }break;
 
-            case '8':{ // Visual print huffman tree
+            case 'a':{ // Visual print huffman tree
                 if(!huffman_tree_exist){
                     cout << "Error! The huffman tree is not existed!" << endl;
                     system("pause");
@@ -381,7 +366,7 @@ int main(){
                 system("pause");
             }break;
 
-            case '9':{ // Output the huffman code
+            case 'b':{ // Output the huffman code
                 if(!huffman_code_exist){
                     cout << "Error! The huffman code is not existed!" << endl;
                     system("pause");
@@ -390,11 +375,41 @@ int main(){
                 cout << "======== Huffman Code ========" << endl;
                 cout << "  Char     Code" << endl;
                 for(auto &c : huff_code)
-                    cout << "  " << c.first << "  " << c.second << endl;
+                    if(c.first == '\n')
+                        cout << "  \\n  " << c.second << endl;
+                    else
+                        cout << "  " << c.first << "  " << c.second << endl;
                 cout << "==============================" << endl;
                 system("pause");
             }break;
 
+            case 'c':{ // Save huffman code in local
+                if(!huffman_code_exist){
+                    cout << "Error! The huffman code is not existed!" << endl;
+                    system("pause");
+                    break;
+                }
+                string ofname = "output/CodeKeys.huffkey";
+                int temp_name = 1;
+                if(isFileExists_ifstream(ofname)){
+                    ofname = filenamewithoutext(ofname);
+                    while(isFileExists_ifstream(ofname + "(" + to_string(temp_name) + ").huffkey"))
+                        temp_name ++;
+                    ofname = ofname + "(" + to_string(temp_name) + ").huffkey";
+                }
+                ofstream oF(ofname);
+                for(auto &c : huff_code)
+                    if(c.first == '\n')
+                        oF << "\\n " << c.second << endl;
+                    else
+                        oF << c.first << " " << c.second << endl;
+                oF.close();
+                cout << "Output file path: " << ofname << endl;
+                cout << "Finish!" << endl;
+                system("pause");
+            }break;
+
+            case 'q':
             case 'Q':{
                 system("pause");
                 return 0;
@@ -402,7 +417,9 @@ int main(){
 
             default:{
                 cout << "Error Code! Please enter again!" << endl;
+                system("pause");
             }break;
+        }
     }
     system("pause");
     return 0;

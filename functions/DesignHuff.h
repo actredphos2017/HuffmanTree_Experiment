@@ -46,7 +46,7 @@ Huffman design_code(string path){
     iF.close();
     Huffman huffman;
     huffman.BuildTree(char_weight);
-    huffman.BuildCode();
+    huffman.BuildCode(char_weight);
     return huffman;
 }
 
@@ -66,6 +66,6 @@ Huffman build_code(string path){
     }
     Huffman huffman;
     huffman.BuildTree(char_weight);
-    huffman.BuildCode();
+    huffman.BuildCode(char_weight);
     return huffman;
 }
