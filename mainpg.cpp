@@ -11,9 +11,10 @@
 
 using namespace std;
 
+#include "functions/BinaryFileEdit.h"
+#include "functions/DoubleMapToInt.h"
 #include "head/Huffman.h"
 #include "functions/DesignHuff.h"
-#include "functions/BinaryFileEdit.h"
 
 string file_name[3];
 char ch;
