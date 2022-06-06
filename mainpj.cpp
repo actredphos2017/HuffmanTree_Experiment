@@ -1,13 +1,20 @@
-#include <iostream>
 #include <list>
 #include <map>
 #include <fstream>
+#include <iostream>
 #include <vector>
 #include <string>
 #include <ctime>
 #include <algorithm>
 #include <cmath>
-#include <sstream>
+#include <string>
+#include <vector>
+#include <map>
+#include <list>
+#include <fstream>
+#include <iostream>
+#include <ctime>
+#include <cmath>
 
 #include "head/Huffman.h"
 #include "functions/BinaryFileEdit.h"
