@@ -394,8 +394,6 @@ Huffman build_code(string path){
     return huffman;
 }
 
-using namespace std;
-
 string file_name[3];
 char ch;
 

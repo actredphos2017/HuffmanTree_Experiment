@@ -1,14 +1,5 @@
 #pragma once
 
-#include <fstream>
-#include <iostream>
-#include <string>
-#include <vector>
-#include <map>
-#include "../head/Huffman.h"
-
-using namespace std;
-
 string filename(string path) {
     int i = path.length() - 1;
     while (path[i] != '/') {

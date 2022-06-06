@@ -1,26 +1,19 @@
-#include <list>
-#include <map>
-#include <fstream>
 #include <iostream>
-#include <vector>
+#include <fstream>
 #include <string>
+#include <vector>
+#include <map>
+#include <sstream>
 #include <ctime>
+#include <cmath>
+#include <list>
 #include <algorithm>
-#include <cmath>
-#include <string>
-#include <vector>
-#include <map>
-#include <list>
-#include <fstream>
-#include <iostream>
-#include <ctime>
-#include <cmath>
-
-#include "head/Huffman.h"
-#include "functions/BinaryFileEdit.h"
-#include "functions/DeCodingHuff.h"
 
 using namespace std;
+
+#include "head/Huffman.h"
+#include "functions/DesignHuff.h"
+#include "functions/BinaryFileEdit.h"
 
 string file_name[3];
 char ch;
