@@ -387,7 +387,6 @@ Huffman design_code(string path){
     string fn = filename(path);
     cout << "File name: " << fn << endl;
     ifstream iF(path);
-    
     map<char, double> _char_weight;
     for(string line; getline(iF, line); )
         if(line.substr(0,2) == "\\n")
