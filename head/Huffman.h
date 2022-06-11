@@ -1,5 +1,9 @@
 #pragma once
 
+#include <vector>
+#include <list>
+#include <map>
+
 #define SEP ":"
 
 struct HTree_Node{

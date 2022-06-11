@@ -28,13 +28,14 @@ Huffman design_code(string path){
     string fn = filename(path);
     cout << "File name: " << fn << endl;
     ifstream iF(path);
-    map<char, int> char_weight;
+    map<char, double> _char_weight;
     for(string line; getline(iF, line); )
         if(line.substr(0,2) == "\\n")
-            char_weight['\n'] == atoi(line.c_str() + 3);
+            _char_weight['\n'] == string_to_double(line.substr(3));
         else
-            char_weight[line[0]] = atoi(line.c_str() + 2);
+            _char_weight[line[0]] = string_to_double(line.substr(2));
     iF.close();
+    map<char, int> char_weight = double_map_to_int(_char_weight);
     Huffman huffman;
     huffman.BuildTree(char_weight);
     huffman.BuildCode(char_weight);

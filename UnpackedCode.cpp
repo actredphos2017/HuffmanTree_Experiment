@@ -13,17 +13,43 @@
 
 using namespace std;
 
-bool have_decimal(double d){
-    return d - (int)d != 0;
-}
-
-int count_of_decimal_digits(double x){
-    int count = 0;
-    while(have_decimal(x)){
+unsigned int count_of_decimal_digits(double x){
+    unsigned int count = 0;
+    while(x - (int)x > 0.000001 || x - (int)x < -0.000001){
         x *= 10;
         count ++;
     }
     return count;
+}
+
+map<char, int> double_map_to_int(map<char, double> m){
+    unsigned int max_count = 0;
+    for(auto &c : m){
+        unsigned int count = count_of_decimal_digits(c.second);
+        if(count > max_count)
+            max_count = count;
+    }
+    map<char, int> m_int;
+    for(auto &c : m)
+        m_int[c.first] = (int)(c.second * pow(10, max_count));
+    return m_int;
+}
+
+double string_to_double(string s){
+    double x = 0;
+    bool flag = false;
+    unsigned int count = 0;
+    for(auto i = s.begin(); i != s.end(); i ++){
+        if(*i == '.'){
+            flag = true;
+            continue;
+        }
+        x = x * 10 + (*i - '0');
+        if(flag) count ++;
+    }
+    while(count --)
+        x /= 10;
+    return x;
 }
 
 void Binary_Output(string file_name, string binary_text){
@@ -361,13 +387,15 @@ Huffman design_code(string path){
     string fn = filename(path);
     cout << "File name: " << fn << endl;
     ifstream iF(path);
-    map<char, int> char_weight;
+    
+    map<char, double> _char_weight;
     for(string line; getline(iF, line); )
         if(line.substr(0,2) == "\\n")
-            char_weight['\n'] == atoi(line.c_str() + 3);
+            _char_weight['\n'] == string_to_double(line.substr(3));
         else
-            char_weight[line[0]] = atoi(line.c_str() + 2);
+            _char_weight[line[0]] = string_to_double(line.substr(2));
     iF.close();
+    map<char, int> char_weight = double_map_to_int(_char_weight);
     Huffman huffman;
     huffman.BuildTree(char_weight);
     huffman.BuildCode(char_weight);
